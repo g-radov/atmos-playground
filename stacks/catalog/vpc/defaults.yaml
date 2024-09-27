@@ -1,0 +1,21 @@
+---
+components:
+  terraform:
+    vpc:
+      metadata:
+        component: vpc
+      settings:
+        validation:
+          validate-vpc-component-with-jsonschema:
+            schema_type: jsonschema
+            schema_path: "vpc/validate-vpc-component.json"
+            description: Validate 'vpc' components variables using JSON Schema
+      vars:
+        enabled: true
+        name: "atmos-playground"
+        max_subnet_count: 2
+        nat_gateway_enabled: false
+        subnet_type_tag_key: "acme/subnet/type"
+        ipv4_primary_cidr_block: 10.9.0.0/18
+        map_public_ip_on_launch: true
+        vpc_flow_logs_enabled: false

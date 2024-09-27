@@ -1,0 +1,5 @@
+---
+import:
+  - orgs/acme/plat/dev/_defaults
+  - mixins/region/eu-north-1
+  - catalog/vpc/dev

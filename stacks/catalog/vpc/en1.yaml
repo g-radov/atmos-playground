@@ -1,0 +1,10 @@
+---
+import:
+  - catalog/vpc/defaults
+components:
+  terraform:
+    vpc:
+      vars:
+        availability_zones:
+          - eu-north-1a
+          - eu-north-1b

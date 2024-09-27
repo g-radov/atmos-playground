@@ -1,0 +1,52 @@
+apiVersion: atmos/v1
+kind: AtmosVendorConfig
+metadata:
+  name: example-vendor-config
+  description: Atmos vendoring manifest
+spec:
+  imports: []
+  sources:
+    - component: "account"
+      source: "github.com/cloudposse/terraform-aws-components.git//modules/{{.Component}}?ref={{.Version}}"
+      version: "1.495.0"
+      targets:
+        - "components/terraform/{{.Component}}"
+      included_paths:
+        - "**/*.tf"
+      excluded_paths:
+        - "**/providers.tf"
+      tags:
+        - baseline
+    - component: "account-map"
+      source: "github.com/cloudposse/terraform-aws-components.git//modules/{{.Component}}?ref={{.Version}}"
+      version: "1.495.0"
+      targets:
+        - "components/terraform/{{.Component}}"
+      included_paths:
+        - "**/*.tf"
+      excluded_paths:
+        - "**/providers.tf"
+      tags:
+        - baseline
+    - component: "tfstate-backend"
+      source: "github.com/cloudposse/terraform-aws-components.git//modules/{{.Component}}?ref={{.Version}}"
+      version: "1.495.0"
+      targets:
+        - "components/terraform/{{.Component}}"
+      included_paths:
+        - "**/*.tf"
+      excluded_paths:
+        - "**/providers.tf"
+      tags:
+        - state
+    - component: "vpc"
+      source: "github.com/cloudposse/terraform-aws-components.git//modules/{{.Component}}?ref={{.Version}}"
+      version: "1.495.0"
+      targets:
+        - "components/terraform/{{.Component}}"
+      included_paths:
+        - "**/*.tf"
+      excluded_paths:
+        - "**/providers.tf"
+      tags:
+        - networking

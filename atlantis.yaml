@@ -1,0 +1,45 @@
+---
+version: 3
+automerge: true
+delete_source_branch_on_merge: true
+parallel_plan: true
+parallel_apply: true
+allowed_regexp_prefixes: [dev/]
+projects:
+  - name: dev
+    workspace: dev
+    dir: /home/gradov/code/work/luminor-test-assignment/components/terraform/eks
+    terraform_version: 1.9.5
+    delete_source_branch_on_merge: true
+    autoplan:
+      enabled: true
+      when_modified: ['**/*.tf', varfiles/$PROJECT_NAME.tfvars]
+    apply_requirements: []
+  - name: dev
+    workspace: dev
+    dir: /home/gradov/code/work/luminor-test-assignment/components/terraform/helm
+    terraform_version: 1.9.5
+    delete_source_branch_on_merge: true
+    autoplan:
+      enabled: true
+      when_modified: ['**/*.tf', varfiles/$PROJECT_NAME.tfvars]
+    apply_requirements: []
+  - name: dev
+    workspace: dev
+    dir: /home/gradov/code/work/luminor-test-assignment/components/terraform/vpc
+    terraform_version: 1.9.5
+    delete_source_branch_on_merge: true
+    autoplan:
+      enabled: true
+      when_modified: ['**/*.tf', varfiles/$PROJECT_NAME.tfvars]
+    apply_requirements: []
+workflows:
+  workflow-1:
+    apply:
+      steps:
+        - run: terraform apply $PLANFILE
+    plan:
+      steps:
+        - run: terraform init -input=false
+        - run: terraform workspace select $WORKSPACE
+        - run: terraform plan -input=false -refresh -out $PLANFILE -var-file varfiles/$PROJECT_NAME.tfvars

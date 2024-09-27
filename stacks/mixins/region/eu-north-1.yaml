@@ -1,0 +1,6 @@
+---
+import:
+  - catalog/vpc/en1
+vars:
+  region: eu-north-1
+  environment: en1

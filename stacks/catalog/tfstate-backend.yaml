@@ -1,0 +1,7 @@
+---
+components:
+  terraform:
+    tfstate-backend:
+      vars:
+        enabled: true
+        name: tfstate

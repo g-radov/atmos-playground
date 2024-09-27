@@ -1,0 +1,41 @@
+name: "Luminor DevOps Test Assignment"
+on:
+  workflow_dispatch:
+    inputs:
+      atmos_workflow:
+        type: choice
+        description: Select atmos workflow
+        options:
+          - eks-atlantis-apply
+          - eks-atlantis-destroy
+        required: true
+  pull_request:
+env:
+  ATMOS_VERSION: 1.88.1
+  ATMOS_CLI_CONFIG_PATH: ./
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Setup Atmos
+        uses: cloudposse/github-action-setup-atmos@v2
+        with:
+          atmos-version: ${{ env.ATMOS_VERSION }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: eu-north-1
+          role-to-assume: arn:aws:iam::816069127789:role/luminor-dev-eks-atlantis-github-actions
+          role-session-name: GitHubActions
+
+      - name: Run atmos workflow
+        run: atmos workflow ${{ github.event.inputs.atmos_workflow }} --file ${{ github.event.inputs.atmos_workflow }}.yaml

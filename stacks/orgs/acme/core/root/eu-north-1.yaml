@@ -1,0 +1,7 @@
+---
+import:
+  - orgs/acme/core/root/_defaults
+  - mixins/region/global
+  - catalog/account
+  - catalog/account-map
+  - catalog/tfstate-backend

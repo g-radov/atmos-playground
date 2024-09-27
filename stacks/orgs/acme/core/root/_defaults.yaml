@@ -1,0 +1,4 @@
+---
+import:
+  - orgs/acme/core/_defaults
+  - mixins/stage/root

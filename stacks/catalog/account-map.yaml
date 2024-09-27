@@ -1,0 +1,6 @@
+---
+components:
+  terraform:
+    account-map:
+      vars:
+        enabled: true
